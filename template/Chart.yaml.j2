@@ -1,0 +1,17 @@
+---
+apiVersion: v2
+description: '{{ chart_description }}'
+name: '{{ chart_name }}'
+version: 3.4.0
+kubeVersion: '>=1.22.0-0'
+{%- if maintainer_name %}
+maintainers:
+  - name: '{{ maintainer_name }}'
+  {%- if maintaner_email %}
+    email: '{{ maintainer_email }}'
+  {%- endif %}
+{%- endif %}
+dependencies:
+  - name: common
+    repository: https://bjw-s.github.io/helm-charts
+    version: 3.4.0

@@ -1,0 +1,35 @@
+---
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          repository: '{{ image_repository }}'
+          tag: '{{ image_tag }}'
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: '{{ service_port }}'
+{%- if enable_ingress %}
+ingress:
+  main:
+    hosts:
+      - host: '{{ ingress_host }}'
+        paths:
+          - path: /
+            service:
+              identifier: main
+              port: http
+  {%- if enable_tls %}
+    tls:
+      - secretName: '{{ chart_name }}'
+        hosts: ['{{ ingress_host }}'] 
+  {%- endif %}
+{%- endif %}
+{%- if enable_config %}
+persistence:
+  config:
+    enabled: true
+{%- endif %}

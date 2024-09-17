@@ -1,0 +1,35 @@
+---
+_subdirectory: template
+_templates_suffix: .j2
+_tasks: [helm-docs]
+chart_name:
+  type: str
+chart_description:
+  type: str
+maintainer_name:
+  type: str
+  default: ''
+maintainer_email:
+  type: str
+  when: '{% if maintainer_name %}true{% endif %}'
+  default: ''
+image_repository:
+  type: str
+image_tag:
+  type: str
+  default: latest
+service_port:
+  type: int
+enable_ingress:
+  type: bool
+  default: true
+ingress_host:
+  type: str
+  when: '{% if enable_ingress %}true{% endif %}'
+enable_tls:
+  type: bool
+  when: '{% if enable_ingress %}true{% endif %}'
+  default: false
+enable_config:
+  type: bool
+  default: false
